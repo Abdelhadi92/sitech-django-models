@@ -27,6 +27,28 @@ class TrackingFieldsMixin:
         self._old_fields[field] = value
 
 
+class SoftDeleteQuerySet(models.QuerySet):
+    def delete(self, force_delete=False):
+        if force_delete:
+            return super().delete()
+        return super().update(is_deleted=1)
+
+
+class SoftDeleteManager(models.Manager):
+    def get_queryset(self):
+        return SoftDeleteQuerySet(model=self.model, using=self._db, hints=self._hints)
+
+
+class SoftDeleteMixin:
+    objects = SoftDeleteManager()
+
+    def delete(self, using=None, keep_parents=False, force_delete=False):
+        if force_delete:
+            return super().delete(using=using, keep_parents=keep_parents)
+        self.is_deleted = True
+        self.save()
+
+
 class Model(TrackingFieldsMixin, models.Model):
 
     class Meta:

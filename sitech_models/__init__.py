@@ -1,1 +1,1 @@
-from sitech_models.base import Model, TrackingFieldsMixin
+from sitech_models.base import Model, TrackingFieldsMixin, SoftDeleteMixin
