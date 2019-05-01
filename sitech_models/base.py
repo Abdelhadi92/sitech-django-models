@@ -36,10 +36,12 @@ class SoftDeleteQuerySet(models.QuerySet):
 
 class SoftDeleteManager(models.Manager):
     def get_queryset(self):
-        return SoftDeleteQuerySet(model=self.model, using=self._db, hints=self._hints)
+        return SoftDeleteQuerySet(model=self.model, using=self._db, hints=self._hints).filter(is_deleted=False)
 
 
 class SoftDeleteMixin:
+    is_deleted = models.BooleanField(default=False)
+    
     objects = SoftDeleteManager()
 
     def delete(self, using=None, keep_parents=False, force_delete=False):
