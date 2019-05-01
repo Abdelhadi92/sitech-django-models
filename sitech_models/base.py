@@ -51,7 +51,7 @@ class SoftDeleteMixin:
         self.save()
 
 
-class Model(TrackingFieldsMixin, models.Model):
+class Model(SoftDeleteMixin, TrackingFieldsMixin, models.Model):
 
     class Meta:
         abstract = True
