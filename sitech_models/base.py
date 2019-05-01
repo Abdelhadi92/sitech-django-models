@@ -39,9 +39,9 @@ class SoftDeleteManager(models.Manager):
         return SoftDeleteQuerySet(model=self.model, using=self._db, hints=self._hints).filter(is_deleted=False)
 
 
-class SoftDeleteMixin:
+class SoftDeleteMixin(models.Model):
     is_deleted = models.BooleanField(default=False)
-    
+
     objects = SoftDeleteManager()
 
     def delete(self, using=None, keep_parents=False, force_delete=False):
@@ -49,6 +49,9 @@ class SoftDeleteMixin:
             return super().delete(using=using, keep_parents=keep_parents)
         self.is_deleted = True
         self.save()
+
+    class Meta:
+        abstract = True
 
 
 class Model(SoftDeleteMixin, TrackingFieldsMixin, models.Model):
