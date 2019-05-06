@@ -3,7 +3,7 @@ from operator import attrgetter
 
 from django.conf import settings
 from django.db import models
-from django.db import transaction
+from django.db import transaction, router
 from django.db.models import signals, sql
 from django.db.models.deletion import Collector
 
@@ -112,8 +112,15 @@ class SoftDeleteMixin(models.Model):
     def delete(self, using=None, keep_parents=False, force_delete=False):
         if force_delete or not getattr(settings, 'SOFT_DELETE', False):
             return super().delete(using=using, keep_parents=keep_parents)
-        self.is_deleted = True
-        self.save()
+
+        using = using or router.db_for_write(self.__class__, instance=self)
+        assert self.pk is not None, (
+                "%s object can't be deleted because its %s attribute is set to None." %
+                (self._meta.object_name, self._meta.pk.attname)
+        )
+        collector = SoftDeleteCollector(using=using)
+        collector.collect([self], keep_parents=keep_parents)
+        return collector.delete()
 
     class Meta:
         abstract = True
