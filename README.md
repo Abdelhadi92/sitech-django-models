@@ -8,7 +8,6 @@ Run the [pip](https://pip.pypa.io/en/stable/) command to install the latest vers
 ```
 
 ## Usage
-Given that I have the model
 ```bash
 class YourModel(models.Model):
     mai_field = models.CharField()
