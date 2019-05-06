@@ -16,7 +16,7 @@ class YourModel(models.Model):
 ```        
 <br/>  
         
-**-Tracking Fields:**  access old value of a model fields.
+**-Tracking Fields:** 
 ```bash
 	from sitech_models import TrackingFieldsMixin
 
