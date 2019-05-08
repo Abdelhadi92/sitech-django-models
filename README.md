@@ -9,7 +9,7 @@ Run the [pip](https://pip.pypa.io/en/stable/) command to install the latest vers
 
 ## Usage
 Given that you have the model
-```bash
+```python
 class YourModel(models.Model):
     mai_field = models.CharField()
     other_field = models.BooleanField()
@@ -17,14 +17,14 @@ class YourModel(models.Model):
 <br/>  
         
 **-Tracking Fields:** 
-```bash
-	from sitech_models import TrackingFieldsMixin
+```python
+from sitech_models import TrackingFieldsMixin
 
-	class YourModel(TrackingFieldsMixin, models.Model):
-	    mai_field = models.CharField()
-	    other_field = models.BooleanField()
+class YourModel(TrackingFieldsMixin, models.Model):
+    mai_field = models.CharField()
+    other_field = models.BooleanField()
 
-	obj = YourModel.objects.get(1)
+obj = YourModel.objects.get(1)
 ```  
  - Call `get_old_field('field_name')` to access the old value.
  - Call `set_old_field('field_name', value)` to set the old value.
@@ -32,7 +32,7 @@ class YourModel(models.Model):
 <br/>  
 
 **- Soft Delete:** 
-```bash
+```python
 from sitech_models import SoftDeleteMixin
 
 class MyModel(SoftDeleteMixin, models.Model):
