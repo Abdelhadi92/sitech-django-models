@@ -13,7 +13,7 @@ class TrackingFieldsMixin:
     def _set_old_fields(self):
         for field in self._meta.fields:
             attname, column = field.get_attname_column()
-            self._old_fields[column] = getattr(self, column)
+            self._old_fields[attname] = getattr(self, attname)
 
     def get_old_field(self, field, default=None):
         if field in self._old_fields:
