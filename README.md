@@ -48,6 +48,8 @@ Add `SOFT_DELETE = True` to your `Settings`
 -  `YourModel.objects.filters().delete(force_delete=True)`  "force delete"
 -  `obj.delete(force_delete=True)`  "force delete"
 
+<br/>  
+
 **- Model:**  You can use sitech_models.Model to exteneds all the above mixins
 ```python
 from sitech_models import Model
