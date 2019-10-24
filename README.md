@@ -26,8 +26,12 @@ class YourModel(TrackingFieldsMixin, models.Model):
 
 obj = YourModel.objects.get(1)
 ```  
- - Call `get_old_field('field_name')` to access the old value.
- - Call `set_old_field('field_name', value)` to set the old value.
+ - Call `get_old_field('field_name')` to access the old value of a specific field.
+ - Call `set_old_field('field_name', value)` to set the old value of a specific field.
+ - Call `get_old_fields()` to access the old values.
+ - Call `get_dirty_fields()` to returns the fields names that have been modified since they are loaded or saved most recently.
+
+
 
 <br/>  
 
